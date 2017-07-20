@@ -9,7 +9,12 @@ log_file = pd.read_csv('driving_log.csv',
 
 # preview the dataset
 #print(log_file.head(10))
-log_file.steer.hist(bins = 101)
+log_file.steer.hist(bins = 51)
+plt.xlabel("Steer")
+plt.ylabel("Count")
+plt.xlim([-1.0, 1.0])
+plt.ylim([0,200])
+plt.title("Steering angle distribution")
 plt.show()
 
 # give lower weight to images with 0 steer
