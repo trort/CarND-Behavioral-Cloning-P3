@@ -91,7 +91,26 @@ At the end of the process, the vehicle is able to drive autonomously around the 
 
 #### 2. Final Model Architecture
 
-The final model architecture (model.py lines 118-139) consisted of a convolution neural network with the following layers and layer sizes:
+The final model architecture (model.py lines 118-139) consisted of a convolution neural network with the following layers and layer sizes. The dropout layers are only applied between fully connected layers and the output layer has not activation so both positive and negative outputs are possible.
+
+| Layer | Output shape | # of parameters |
+|:-----:|:------------:|:---------------:|
+| Input RGB image | 160 x 320 x 3 | 0 |
+| Cropping | 110 x 320 x 3 | 0 |
+| Resize & normalize | 66 x 200 x 3 | 0 |
+| Convolution 5 x 5 (2 x 2 subsample , RELU activation) | 31 x 98 x 24 | 1824 |
+| Convolution 5 x 5 (2 x 2 subsample , RELU activation) | 14 x 47 x 36 | 21636 |
+| Convolution 5 x 5 (2 x 2 subsample , RELU activation) | 5 x 22 x 48 | 43248 |
+| Convolution 3 x 3 (RELU activation) | 3 x 20 x 64 | 27712 |
+| Convolution 3 x 3 (RELU activation) | 1 x 18 x 64 | 36928 |
+| Flatten | 1152 | 0 |
+| Dropout (prob = 0.5) | 1152 | 0 |
+| Fully connected (RELU activation) | 100 | 115300 |
+| Dropout (prob = 0.3) | 100 | 0 |
+| Fully connected (RELU activation) | 50 | 5050 |
+| Dropout (prob = 0.3) | 50 | 0 |
+| Fully connected (RELU activation) | 10 | 510 |
+| Fully connected (Output, no activation) | 1 | 11 |
 
 Here is a visualization of the architecture from Nvidia's paper (note: the flattened layer should have 1152 neurons instead of 1164). I added a cropping layer and a lambda layer to normalized the input and resize images to the desired size.
 
